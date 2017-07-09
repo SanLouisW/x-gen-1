@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GenConf>
+	<NeedGens>
+		<NeedGen id="MyThemeGenConf" provider="XmlModuleGenConf" themeId="mytheme">
+			<Params>
+				<Param id="fileName">MyThemeUserGenConf.xml</Param>
+			</Params>	
+		</NeedGen>
+<!-- 		<NeedGen id="MyThemeDepGenConf" provider="XmlModuleGenConf" themeId="mytheme">
+			<Params>
+				<Param id="fileName">MyThemeDepGenConf.xml</Param>
+			</Params>	
+		</NeedGen> -->
+	</NeedGens>
+<!-- 	<Themes>
+		<Theme id="mytheme">cn/javass/themes/mytheme</Theme>
+		<Theme id="simple">cn/javass/themes/simple</Theme>
+	</Themes>
+	<Constants>
+		<Constant id="prePackage">com.abc</Constant>
+		<Constant id="projectName">myproject</Constant>
+		
+	</Constants> -->
+</GenConf>

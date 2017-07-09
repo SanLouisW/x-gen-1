@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ModuleGenConf id="MyThemeDepGenConf">
+	<NeedGenTypes>
+		<NeedGenType id="GenVo">
+			<NeedGenOutType id="File"></NeedGenOutType>
+			<NeedGenOutType id="MyDB"></NeedGenOutType>
+		</NeedGenType>
+		<NeedGenType id="GenVoHbmXml">
+			<NeedGenOutType id="File"></NeedGenOutType>
+		</NeedGenType>
+	</NeedGenTypes>
+	<ExtendConfs>
+		<ExtendConf id="codeOutPath" isSingle="true">build</ExtendConf>
+		<ExtendConf id="moduleName" isSingle="true">dep</ExtendConf>
+		<ExtendConf id="moduleNameCase" isSingle="true">Dep</ExtendConf>
+		<ExtendConf id="moduleNameSuperCase" isSingle="true">Dep</ExtendConf>
+		<ExtendConf id="modulePackge" isSingle="true">${gm.getMapConstants().get("prePackage");}.${gm.getMapConstants().get("projectName");}.${moduleName}</ExtendConf>
+		<ExtendConf id="voFields" isSingle="false">depName,managerUserId</ExtendConf>
+		<ExtendConf id="voFieldsType" isSingle="false">String,String</ExtendConf>
+	</ExtendConfs>
+</ModuleGenConf>
