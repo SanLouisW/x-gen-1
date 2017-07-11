@@ -13,13 +13,12 @@
 			</Params>	
 		</NeedGen> -->
 	</NeedGens>
-<!-- 	<Themes>
+	<Themes>
 		<Theme id="mytheme">cn/javass/themes/mytheme</Theme>
 		<Theme id="simple">cn/javass/themes/simple</Theme>
 	</Themes>
 	<Constants>
 		<Constant id="prePackage">com.abc</Constant>
 		<Constant id="projectName">myproject</Constant>
-		
-	</Constants> -->
+	</Constants>
 </GenConf>

@@ -14,27 +14,35 @@ public class MyTest {
 		//2：抽象语法树---〉交给解释器模式去解释执行
 		
 		
-		ElementExpression genConf = new ElementExpression("GenConf", "");
+		/*ElementExpression genConf = new ElementExpression("GenConf", "");
 		ElementExpression needGens = new ElementExpression("NeedGens", "");
 		ElementsExpression needGen = new ElementsExpression("NeedGen", "");
 		ElementsExpression params = new ElementsExpression("Params", "");
 		
-		ElementsTerminalExpression param = new ElementsTerminalExpression("Param", "id=fileName2");
+		ElementsTerminalExpression param = new ElementsTerminalExpression("Param", "");
 		
 		
 		//组装抽象语法树
 		genConf.addEle(needGens);
 		needGens.addEle(needGen);
 		needGen.addEle(params);
-		params.addEle(param);
+		params.addEle(param);*/
+		
+		ElementExpression genConf = new ElementExpression("GenConf", "");
+		ElementExpression themes = new ElementExpression("Themes", "");
+		
+		ElementsTerminalExpression theme = new ElementsTerminalExpression("Theme", "id=simple");
+		
+		genConf.addEle(themes);
+		themes.addEle(theme);
 		
 		long a1 = System.currentTimeMillis();
 		
-		Context ctx = Context.getInstance("classpath:GenConf.xml");
+		Context ctx = Context.getInstance("/GenConf.xml");
 		
-		String[] interpret = genConf.interpret(ctx);
+		String[] ss = genConf.interpret(ctx);
 		
-		System.out.println(interpret);
+		System.out.println("SS[0]="+ss[0]);
 		
 //		for(int i=0;i<1000;i++){
 //			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen/Params/Param$").interpret(ctx);

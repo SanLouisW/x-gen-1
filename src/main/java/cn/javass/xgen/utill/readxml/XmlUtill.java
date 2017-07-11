@@ -17,4 +17,8 @@ public class XmlUtill {
 		
 		return doc;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(XmlUtill.class.getResourceAsStream("/GenConf.xml"));
+	}
 }
