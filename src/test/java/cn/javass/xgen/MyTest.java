@@ -1,10 +1,7 @@
 package cn.javass.xgen;
 
-import cn.javass.xgen.genconf.GenConfEbi;
-import cn.javass.xgen.genconf.GenConfFactory;
 import cn.javass.xgen.utill.readxml.Context;
 import cn.javass.xgen.utill.readxml.ElementExpression;
-import cn.javass.xgen.utill.readxml.ElementsExpression;
 import cn.javass.xgen.utill.readxml.ElementsTerminalExpression;
 
 public class MyTest {
