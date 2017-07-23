@@ -2,7 +2,8 @@ package cn.javass.xgen;
 
 import cn.javass.xgen.utill.readxml.Context;
 import cn.javass.xgen.utill.readxml.ElementExpression;
-import cn.javass.xgen.utill.readxml.ElementsTerminalExpression;
+import cn.javass.xgen.utill.readxml.ElementsExpression;
+import cn.javass.xgen.utill.readxml.ProportysTerminalExpression;
 
 public class MyTest {
 	
@@ -26,20 +27,27 @@ public class MyTest {
 		params.addEle(param);*/
 		
 		ElementExpression genConf = new ElementExpression("GenConf", "");
-		ElementExpression themes = new ElementExpression("Themes", "");
+		ElementExpression needGens = new ElementExpression("NeedGens", "");
+		ElementExpression needGen = new ElementExpression("NeedGen", "");
+		ElementExpression params = new ElementExpression("Params", "");
+		ElementsExpression param = new ElementsExpression("Param", "id=fileName");
 		
-		ElementsTerminalExpression theme = new ElementsTerminalExpression("Theme", "id=simple");
+		ProportysTerminalExpression props = new ProportysTerminalExpression("id");
 		
-		genConf.addEle(themes);
-		themes.addEle(theme);
+		genConf.addEle(needGens);
+		needGens.addEle(needGen);
+		needGen.addEle(params);
+		params.addEle(param);
+		param.addEle(props);
 		
 		long a1 = System.currentTimeMillis();
 		
 		Context ctx = Context.getInstance("/GenConf.xml");
 		
 		String[] ss = genConf.interpret(ctx);
-		
-		System.out.println("SS[0]="+ss[0]);
+		for (int i = 0; i < ss.length; i++) {
+			System.out.println("SS["+i+"]="+ss[i]);
+		}
 		
 //		for(int i=0;i<1000;i++){
 //			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen/Params/Param$").interpret(ctx);
