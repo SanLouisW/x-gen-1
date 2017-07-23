@@ -43,7 +43,7 @@ public class ElementsExpression extends ReadXmlExpression{
 	
 	@Override
 	public String[] interpret(Context context) {
-		// 1.维护父级节点记录
+		// 1.维护父级节点记录,使用的场景是多个肯定不是根元素，根元素只有一个
 		List<Element> preEles = context.getPreEles();
 		
 		// 获取当前元素，多个
