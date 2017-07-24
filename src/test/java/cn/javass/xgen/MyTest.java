@@ -66,7 +66,7 @@ public class MyTest {
 //		
 //		System.out.println("gm====="+ebi.getMapModuleConf());
 		Context ctx = Context.getInstance("/GenConf.xml");
-		String [] ss = Parser.parse("GenConf/NeedGens/NeedGen/Params/Param$[id=fileName2]").interpret(ctx);
+		String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
 		for(String s : ss){
 			System.out.println("ss=="+s);
 		}
