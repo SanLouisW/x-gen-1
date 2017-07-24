@@ -3,6 +3,7 @@ package cn.javass.xgen;
 import cn.javass.xgen.utill.readxml.Context;
 import cn.javass.xgen.utill.readxml.ElementExpression;
 import cn.javass.xgen.utill.readxml.ElementsExpression;
+import cn.javass.xgen.utill.readxml.Parser;
 import cn.javass.xgen.utill.readxml.ProportysTerminalExpression;
 
 public class MyTest {
@@ -24,7 +25,7 @@ public class MyTest {
 		genConf.addEle(needGens);
 		needGens.addEle(needGen);
 		needGen.addEle(params);
-		params.addEle(param);*/
+		params.addEle(param);
 		
 		ElementExpression genConf = new ElementExpression("GenConf", "");
 		ElementExpression needGens = new ElementExpression("NeedGens", "");
@@ -47,7 +48,7 @@ public class MyTest {
 		String[] ss = genConf.interpret(ctx);
 		for (int i = 0; i < ss.length; i++) {
 			System.out.println("SS["+i+"]="+ss[i]);
-		}
+		}*/
 		
 //		for(int i=0;i<1000;i++){
 //			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen/Params/Param$").interpret(ctx);
@@ -64,6 +65,11 @@ public class MyTest {
 //		GenConfEbi ebi = GenConfFactory.createGenConfEbi(new GenConfXmlImpl());
 //		
 //		System.out.println("gm====="+ebi.getMapModuleConf());
+		Context ctx = Context.getInstance("/GenConf.xml");
+		String [] ss = Parser.parse("GenConf/NeedGens/NeedGen/Params/Param$[id=fileName2]").interpret(ctx);
+		for(String s : ss){
+			System.out.println("ss=="+s);
+		}
 	}
 
 	

@@ -81,4 +81,12 @@ public class ParseModel {
 	public void setCondition(String condition) {
 		this.condition = condition;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ParseModel [eleName=" + eleName + ", propertyValue=" + propertyValue + ", end=" + end + ", singleValue="
+				+ singleValue + ", condition=" + condition + "]";
+	}
 }

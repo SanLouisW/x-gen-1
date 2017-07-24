@@ -5,8 +5,14 @@
 		<NeedGen id="MyThemeGenConf" provider="XmlModuleGenConf" themeId="mytheme">
 			<Params>
 				<Param id="fileName">MyThemeUserGenConf.xml</Param>
-				<Param id="fileName2">MyThemeUserGenConf.xml</Param>
-			</Params>	
+				<Param id="fileName2">MyThemeUserGenConf2.xml</Param>
+			</Params>
+		</NeedGen>
+		<NeedGen id="MyThemeGenConf2" provider="XmlModuleGenConf" themeId="mytheme">
+			<Params>
+				<Param id="fileName3">MyThemeUserGenConf3.xml</Param>
+				<Param id="fileName4">MyThemeUserGenConf4.xml</Param>
+			</Params>
 		</NeedGen>
 <!-- 		<NeedGen id="MyThemeDepGenConf" provider="XmlModuleGenConf" themeId="mytheme">
 			<Params>
