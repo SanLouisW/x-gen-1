@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.swing.MenuElement;
+
 public class Parser {
 	private static final String BACKLASH = "/";
 	private static final String DOT = ".";
@@ -25,12 +27,85 @@ public class Parser {
 		
 	}
 	
+	///////////////////备忘录开始////////////////////////
+	private static class MementoImpl implements ParseMedento{
+		private Map<String, ReadXmlExpression> mapRe = new HashMap<String, ReadXmlExpression>();
+		
+		public MementoImpl(Map<String, ReadXmlExpression> mapRe){
+			this.mapRe = mapRe;
+		}
+		
+		public Map<String, ReadXmlExpression> getMapRe(){
+			return mapRe;
+		}
+	}
+	
+	/**
+	 * @param expr
+	 * @return
+	 */
+	public static ReadXmlExpression parse(String expr){
+		// 1获取备忘录
+		ParseCaretaker memento = ParseCaretaker.getInstance();
+		
+		// 2备忘录中取出数据
+		Map<String, ReadXmlExpression> mapRe = null;
+		if(mapRe == null){
+			mapRe = new HashMap<String, ReadXmlExpression>();
+		} else {
+			mapRe = ((MementoImpl)mapRe).getMapRe();
+		}
+		
+		// 3从缓存取出最长的相同string,这部分不要解析
+		String notPaseExpr = searchMaxLongEquals(expr, mapRe);
+		
+		// 4获取剩下部分需要解析的
+		String needPaseExpr = "";
+		if(notPaseExpr.trim().length() == 0){
+			needPaseExpr = expr;
+		} else {
+			if(notPaseExpr.length() < expr.length()){
+				expr.substring(notPaseExpr.length()+1);
+			}else{
+				needPaseExpr = "";
+			}
+		}
+
+		
+		// 5解析剩下部分
+		
+		// 6把剩下部分抽象语法树合并起来
+		
+		return null;
+	}
+	
+	private static String searchMaxLongEquals(String expr, Map<String, ReadXmlExpression> mapRe){
+		// a/b/c
+		boolean flag = mapRe.containsKey(expr);
+		
+		while (!flag) {
+			int lastIndex = expr.lastIndexOf(BACKLASH);
+			
+			if(lastIndex > 0){
+				expr = expr.substring(0, lastIndex);
+				
+				flag = mapRe.containsKey(expr+BACKLASH);
+			}else{
+				expr = "";
+				flag = true;
+			}
+		}
+		
+		return expr;
+	}
+	///////////////////备忘录结束////////////////////////
+	
 	/**
 	 * 根据传入的字符串表达式，解析成为一个抽象的语法树
 	 * @param cxpr字符串表达式
 	 * @return 抽象的语法树
 	 */
-	public static ReadXmlExpression parse(String expr){
+	public static ReadXmlExpression parse2(String expr){
 		// root/a/b/c
 		// 1  分解表达式，得到需要解析的元素名称，和该元素对应的解析模型
 		Map<String, ParseModel> mapPath = parseMapPath(expr);
