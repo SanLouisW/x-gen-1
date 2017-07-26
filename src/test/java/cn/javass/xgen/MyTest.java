@@ -1,10 +1,7 @@
 package cn.javass.xgen;
 
 import cn.javass.xgen.utill.readxml.Context;
-import cn.javass.xgen.utill.readxml.ElementExpression;
-import cn.javass.xgen.utill.readxml.ElementsExpression;
-import cn.javass.xgen.utill.readxml.Parser;
-import cn.javass.xgen.utill.readxml.ProportysTerminalExpression;
+import cn.javass.xgen.utill.readxml.Parser2;
 
 public class MyTest {
 	
@@ -65,8 +62,13 @@ public class MyTest {
 //		GenConfEbi ebi = GenConfFactory.createGenConfEbi(new GenConfXmlImpl());
 //		
 //		System.out.println("gm====="+ebi.getMapModuleConf());
+		long a1 = System.currentTimeMillis();
+		
 		Context ctx = Context.getInstance("/GenConf.xml");
-		String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+		String [] ss = Parser2.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+		
+		long a2 = System.currentTimeMillis();
+		System.out.println("now use time==="+(a2-a1));
 		for(String s : ss){
 			System.out.println("ss=="+s);
 		}

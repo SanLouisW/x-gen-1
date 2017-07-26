@@ -16,9 +16,9 @@ public class Parser {
 	private static final String CLOSE_BRACKET = "]";
 	
 	/**
-	 * 按照分解的先后顺讯记录名称
+	 * 按照分解的先后顺讯记录的路径
 	 */
-	private static List<String> listEle = new ArrayList<String>();
+	private static List<String> listElePath = new ArrayList<String>();
 	
 	/**
 	 * 工具类，构造函数私有化，防止外部创建实例
@@ -73,6 +73,9 @@ public class Parser {
 
 		
 		// 5解析剩下部分
+		if(needPaseExpr.trim().length() > 0){
+			ReadXmlExpression re = parse2(needPaseExpr);
+		}
 		
 		// 6把剩下部分抽象语法树合并起来
 		
@@ -105,27 +108,34 @@ public class Parser {
 	 * @param cxpr字符串表达式
 	 * @return 抽象的语法树
 	 */
-	public static ReadXmlExpression parse2(String expr){
+	private static ReadXmlExpression parse2(String expr){
+		// 清空缓存
+		listElePath = new ArrayList<String>();
+		
 		// root/a/b/c
 		// 1  分解表达式，得到需要解析的元素名称，和该元素对应的解析模型
 		Map<String, ParseModel> mapPath = parseMapPath(expr);
 		
 		// 2  根据元素对应的解析模型，转化成相应的解释器对象
-		List<ReadXmlExpression> listExpression = mapPath2Expression(mapPath);
+		Map<String, ReadXmlExpression> mapExpression = mapPath2Expression(mapPath);
 		
 		// 3  按照先后顺序组合成为抽象的语法树
-		ReadXmlExpression buildTree = buildTree(listExpression);
+		ReadXmlExpression buildTree = buildTree(mapExpression);
 		
 		return buildTree;
 	}
 	
 	/**
-	 * 按照从左到右的顺序来解析表达式得到相应该元素对应的解析模型
+	 * 按照从左到右的顺序来解析表达式得到相应该元素的路径和对应的解析模型
 	 * @param expr
 	 * @return
 	 */
 	private static Map<String, ParseModel> parseMapPath(String expr){
 		Map<String, ParseModel> mapPath = new HashMap<String, ParseModel>();
+		
+		// 从根开始的前缀路径
+		StringBuffer pathBuffer = new StringBuffer();
+		
 		StringTokenizer tokenizer = new StringTokenizer(expr, BACKLASH);
 		
 		while (tokenizer.hasMoreTokens()) {
@@ -133,7 +143,9 @@ public class Parser {
 			
 			if(tokenizer.hasMoreTokens()){
 				// 还有下一个，说明不是结尾
-				setParsePath(onePath, false, false, mapPath);
+				pathBuffer.append(onePath+BACKLASH);//设置路径
+				
+				setParsePath(pathBuffer, onePath, false, false, mapPath);
 			}else {
 				int dotIndex = onePath.indexOf(DOT);
 				
@@ -141,14 +153,20 @@ public class Parser {
 					String eleName = onePath.substring(0, dotIndex);
 					String propName = onePath.substring(dotIndex+1);
 					
+					pathBuffer.append(eleName + DOT);//设置路径
+					
 					//设置属性前面的元素
-					setParsePath(eleName, false, false, mapPath);
+					setParsePath(pathBuffer, eleName, false, false, mapPath);
+					
+					pathBuffer.append(propName);
 					
 					//设置属性
-					setParsePath(propName, true, true, mapPath);
+					setParsePath(pathBuffer, propName, true, true, mapPath);
 				} else {
 					// 说明元素结尾
-					setParsePath(onePath, true, false, mapPath);
+					pathBuffer.append(onePath);
+					
+					setParsePath(pathBuffer, onePath, true, false, mapPath);
 				}
 				
 				break ;
@@ -158,7 +176,7 @@ public class Parser {
 		return mapPath;
 	}
 	
-	private static void setParsePath(String eleName, boolean end, boolean propertyVale, Map<String, ParseModel> mapPath){
+	private static void setParsePath(StringBuffer pathBuffer, String eleName, boolean end, boolean propertyVale, Map<String, ParseModel> mapPath){
 		// 还有下一个，说明不是结尾
 		ParseModel pm = new ParseModel();
 		
@@ -181,11 +199,11 @@ public class Parser {
 		
 		pm.setEleName(eleName);
 		
-		mapPath.put(eleName, pm);
+		mapPath.put(pathBuffer.toString(), pm);
 		
 		System.out.println("===>pm="+pm.toString());
 		
-		listEle.add(eleName);
+		listElePath.add(pathBuffer.toString());
 	}
 	
 	/**
@@ -193,17 +211,17 @@ public class Parser {
 	 * @param mapPath
 	 * @return
 	 */
-	private static List<ReadXmlExpression> mapPath2Expression(Map<String, ParseModel> mapPath){
-		List<ReadXmlExpression> list = new ArrayList<ReadXmlExpression>();
-		for (String key : listEle) {
+	private static Map<String, ReadXmlExpression> mapPath2Expression(Map<String, ParseModel> mapPath){
+		Map<String, ReadXmlExpression> map = new HashMap<String, ReadXmlExpression>();
+		for (String key : listElePath) {
 			ParseModel pm = mapPath.get(key);
 			
 			ReadXmlExpression obj = parseModel2ReadXmlExpression(pm);
 			
-			list.add(obj);
+			map.put(key, obj);
 		}
 		
-		return list;
+		return map;
 	}
 	
 	private static ReadXmlExpression parseModel2ReadXmlExpression(ParseModel pm){
@@ -234,13 +252,15 @@ public class Parser {
 		return obj;
 	}
 	
-	private static ReadXmlExpression buildTree(List<ReadXmlExpression> listExpression){
+	private static ReadXmlExpression buildTree(String prefixStr, ReadXmlExpression prefixRe, 
+			Map<String, ReadXmlExpression> mapPathAndRe, Map<String, ReadXmlExpression> mapRe){
 		// 第一个对象，跟对象，也是要返回去对象
-		ReadXmlExpression retRe = null;
+		ReadXmlExpression retRe = prefixRe;
 		// 临时记录父元素
-		ReadXmlExpression preRe = null;
+		ReadXmlExpression preRe = getLastRe(prefixRe);
 		
-		for (ReadXmlExpression re : listExpression) {
+		for (String path : listElePath) {
+			ReadXmlExpression re = mapPathAndRe.get(path);
 			if(preRe == null){
 				retRe = re;
                 preRe = re;
@@ -260,8 +280,54 @@ public class Parser {
 					preRe = re;
 				}
 			}
+			// 每次生成一个抽象树对象，添加到缓存
+			if(prefixStr != null && prefixStr.length() > 0){
+				
+				mapRe.put(prefixStr + BACKLASH + path, value);
+			}
 		}
 		
 		return retRe;
+	}
+	
+	/**
+	 * 获取解析过的对象树的最后一个元素对象
+	 * @return
+	 */
+	private static ReadXmlExpression getLastRe(ReadXmlExpression prefixRe){
+		ReadXmlExpression lastRe = prefixRe;
+		boolean flag = true;
+		
+		while (flag) {
+			if(lastRe instanceof ElementExpression){
+				if(((ElementExpression)lastRe).getEles().size() > 0){
+					lastRe = ((ElementExpression)lastRe).getEles().get(0);//取子元素，循环实现递归到树的结尾
+					
+					if(lastRe instanceof ElementExpression){
+						flag =  ((ElementExpression)lastRe).getEles().size() > 0;
+					} else if(lastRe instanceof ElementsExpression){
+						flag =  ((ElementsExpression)lastRe).getEles().size() > 0;
+					} else {
+						flag = false;
+					}
+				}else {
+					flag = false;
+				}
+			}else if(lastRe instanceof ElementsExpression){
+				lastRe = ((ElementExpression)lastRe).getEles().get(0);//取子元素，循环实现递归到树的结尾
+				
+				if(lastRe instanceof ElementExpression){
+					flag =  ((ElementExpression)lastRe).getEles().size() > 0;
+				} else if(lastRe instanceof ElementsExpression){
+					flag =  ((ElementsExpression)lastRe).getEles().size() > 0;
+				} else {
+					flag = false;
+				}
+			} else {
+				flag = false;
+			}
+		}
+		
+		return lastRe;
 	}
 }

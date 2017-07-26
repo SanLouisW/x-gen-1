@@ -41,6 +41,13 @@ public class ElementExpression extends ReadXmlExpression{
 		return true;
 	}
 	
+	/**
+	 * @return the eles
+	 */
+	public List<ReadXmlExpression> getEles() {
+		return eles;
+	}
+
 	@Override
 	public String[] interpret(Context context) {
 		// 1.维护父级节点记录
