@@ -60,4 +60,15 @@ public class ElementsTerminalExpression extends ReadXmlExpression{
 		}
 		return ss;
 	}
+	@Override
+	protected Object clone(){
+		Object obj = null;
+		try {
+			obj = super.clone();
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return obj;
+	}
 }

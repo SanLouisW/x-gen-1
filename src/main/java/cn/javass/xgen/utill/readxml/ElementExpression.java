@@ -31,6 +31,13 @@ public class ElementExpression extends ReadXmlExpression{
 		this.eles.add(readXmlExpression);
 	}
 	
+	/**
+	 * @param eles the eles to set
+	 */
+	public void setEles(List<ReadXmlExpression> eles) {
+		this.eles = eles;
+	}
+
 	public boolean removeEle(ReadXmlExpression readXmlExpression){
 		this.eles.remove(readXmlExpression);
 		return true;
@@ -87,4 +94,26 @@ public class ElementExpression extends ReadXmlExpression{
 		return ss;
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.javass.xgen.utill.readxml.ReadXmlExpression#clone()
+	 */
+	@Override
+	protected Object clone(){
+		ElementExpression obj = null;
+		try {
+			obj = (ElementExpression) super.clone();
+			
+			ArrayList<ReadXmlExpression> objEles = new ArrayList<ReadXmlExpression>();
+			
+			for (ReadXmlExpression re : objEles) {
+				objEles.add((ReadXmlExpression)re.clone());
+			}
+			
+			obj.setEles(objEles);
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return obj;
+	}
 }

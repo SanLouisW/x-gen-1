@@ -1,5 +1,6 @@
 package cn.javass.xgen.utill.readxml;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -48,5 +49,16 @@ public class ElementTerminalExpression extends ReadXmlExpression{
 		}
 		
 		return ss;
+	}
+	@Override
+	protected Object clone() {
+		ElementTerminalExpression obj = null;
+		try {
+			obj = (ElementTerminalExpression) super.clone();
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return obj;
 	}
 }

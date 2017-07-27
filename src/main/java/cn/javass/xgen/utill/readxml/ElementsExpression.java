@@ -48,6 +48,13 @@ public class ElementsExpression extends ReadXmlExpression{
 		return eles;
 	}
 
+	/**
+	 * @param eles the eles to set
+	 */
+	public void setEles(List<ReadXmlExpression> eles) {
+		this.eles = eles;
+	}
+
 	@Override
 	public String[] interpret(Context context) {
 		// 1.维护父级节点记录,使用的场景是多个肯定不是根元素，根元素只有一个
@@ -82,4 +89,23 @@ public class ElementsExpression extends ReadXmlExpression{
 		return ss;
 	}
 
+	@Override
+	protected Object clone() {
+		ElementsExpression obj = null;
+		try {
+			obj = (ElementsExpression) super.clone();
+			
+			ArrayList<ReadXmlExpression> objEles = new ArrayList<ReadXmlExpression>();
+			
+			for (ReadXmlExpression re : objEles) {
+				objEles.add((ReadXmlExpression)re.clone());
+			}
+			
+			obj.setEles(objEles);
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return obj;
+	}
 }

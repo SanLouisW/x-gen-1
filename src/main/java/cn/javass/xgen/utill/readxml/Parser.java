@@ -45,6 +45,7 @@ public class Parser {
 	 * @return
 	 */
 	public static ReadXmlExpression parse(String expr){
+		ReadXmlExpression retObj = null;
 		// 1获取备忘录
 		ParseCaretaker memento = ParseCaretaker.getInstance();
 		
@@ -74,12 +75,15 @@ public class Parser {
 		
 		// 5解析剩下部分
 		if(needPaseExpr.trim().length() > 0){
-			ReadXmlExpression re = parse2(needPaseExpr);
+			retObj = parse2(needPaseExpr, notPaseExpr, mapRe);
+		} else {
+			retObj = mapRe.get(notPaseExpr);
 		}
 		
-		// 6把剩下部分抽象语法树合并起来
+		// 6解析完了，重新设置备忘录
+		ParseCaretaker.getInstance().saveMedento(new MementoImpl(mapRe));
 		
-		return null;
+		return retObj;
 	}
 	
 	private static String searchMaxLongEquals(String expr, Map<String, ReadXmlExpression> mapRe){
@@ -108,19 +112,25 @@ public class Parser {
 	 * @param cxpr字符串表达式
 	 * @return 抽象的语法树
 	 */
-	private static ReadXmlExpression parse2(String expr){
+	private static ReadXmlExpression parse2(String needPaseExpr, String notPaseExpr, Map<String, ReadXmlExpression> mapRe){
 		// 清空缓存
 		listElePath = new ArrayList<String>();
 		
 		// root/a/b/c
 		// 1  分解表达式，得到需要解析的元素名称，和该元素对应的解析模型
-		Map<String, ParseModel> mapPath = parseMapPath(expr);
+		Map<String, ParseModel> mapPath = parseMapPath(needPaseExpr);
 		
 		// 2  根据元素对应的解析模型，转化成相应的解释器对象
-		Map<String, ReadXmlExpression> mapExpression = mapPath2Expression(mapPath);
+		Map<String, ReadXmlExpression> mapPathRe = mapPath2Expression(mapPath);
 		
 		// 3  按照先后顺序组合成为抽象的语法树
-		ReadXmlExpression buildTree = buildTree(mapExpression);
+		ReadXmlExpression prefixRe = mapRe.get(notPaseExpr + BACKLASH);
+		// 使用过程中，不会对备忘录数据造成影响，所以clone
+		if(prefixRe != null){
+			prefixRe = (ReadXmlExpression)mapRe.get(notPaseExpr + BACKLASH).clone();
+		}
+		
+		ReadXmlExpression buildTree = buildTree(notPaseExpr, prefixRe, mapPathRe, mapRe);
 		
 		return buildTree;
 	}
@@ -283,7 +293,9 @@ public class Parser {
 			// 每次生成一个抽象树对象，添加到缓存
 			if(prefixStr != null && prefixStr.length() > 0){
 				
-				mapRe.put(prefixStr + BACKLASH + path, value);
+				mapRe.put(prefixStr + BACKLASH + path, (ReadXmlExpression)preRe.clone());
+			} else {
+				mapRe.put(path, (ReadXmlExpression)preRe.clone());
 			}
 		}
 		
