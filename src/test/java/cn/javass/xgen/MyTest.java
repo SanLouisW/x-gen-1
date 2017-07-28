@@ -67,8 +67,8 @@ public class MyTest {
 		
 		Context ctx = Context.getInstance("/GenConf.xml");
 		for(int i=0;i<1000;i++){
-			String [] ss = Parser2.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
-			//String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+			//String [] ss = Parser2.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
 		}
 		
 		long a2 = System.currentTimeMillis();
