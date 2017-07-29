@@ -69,7 +69,7 @@ public abstract class CommonBuilder<T> {
 	 * 拼接 “,” , 支持连缀
 	 * @return
 	 */
-	public T addComma(){
+	public T addDot(){
 		getBuilderBuffer().append(ExpressionEnum.comma.getExpr());
 		return getBuilderClassInstance();
 	}
