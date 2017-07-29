@@ -1,13 +1,15 @@
 package cn.javass.xgen.genconf.constants;
 
 public enum ExpressionEnum {
-	dot("."),
+	dot("."), 
 	separator("/"),
 	dollar("$"),
 	openBracket("["),
 	closeBracket("]"),
 	equal("="),
-	comma(",");
+	comma(","),
+	xml("xml"),
+	xmlFilePre("/");
 	
 	private String expr;
 	private ExpressionEnum(String expr){
