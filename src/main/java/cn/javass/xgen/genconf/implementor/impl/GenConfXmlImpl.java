@@ -85,7 +85,7 @@ public class GenConfXmlImpl implements GenConfImplementor {
 		c.init();
 		ReadXmlExpression re = Parser.parse(
 			new GenConfBuilder().addGenConf().addSeparator().addNeedGens().addSeparator()
-			.addNeedGen().addDollar().addDot().addProvider().addDollar().build()
+			.addNeedGen().addDollar().addDot().addId().addDollar().build()
 		);
 		return re.interpret(c);
 	}
@@ -123,10 +123,9 @@ public class GenConfXmlImpl implements GenConfImplementor {
 	private String[] parseNeedGenProviders(Context c){
 		c.init();
 		ReadXmlExpression re = Parser.parse(
-				new GenConfBuilder().addGenConf().addSeparator().addNeedGens().addSeparator()
-				.addNeedGen().addDollar().addDot().addProvider().addDollar()
-				.build()
-				);
+			new GenConfBuilder().addGenConf().addSeparator().addNeedGens().addSeparator()
+			.addNeedGen().addDollar().addDot().addProvider().addDollar().build()
+		);
 		return re.interpret(c);
 	}
 	//////////////////////////////////////////////////////////////////////

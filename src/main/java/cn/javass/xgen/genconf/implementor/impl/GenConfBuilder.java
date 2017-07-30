@@ -59,8 +59,4 @@ public class GenConfBuilder extends CommonBuilder<GenConfBuilder>{
 	protected GenConfBuilder getBuilderClassInstance() {
 		return this;
 	}
-	public GenConfBuilder addXmlFilePre() {
-		buffer.append(GenConfEnum.Param);
-		return this;
-	}
 }

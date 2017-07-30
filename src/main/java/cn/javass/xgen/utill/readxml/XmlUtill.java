@@ -8,6 +8,8 @@ import org.w3c.dom.Document;
 public class XmlUtill {
 	
 	public static Document getDocument(String filePathName) throws Exception{
+		System.out.println("===>fileName:"+filePathName);
+		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		

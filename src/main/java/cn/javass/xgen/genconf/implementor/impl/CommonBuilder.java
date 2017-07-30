@@ -70,7 +70,7 @@ public abstract class CommonBuilder<T> {
 	 * @return
 	 */
 	public T addDot(){
-		getBuilderBuffer().append(ExpressionEnum.comma.getExpr());
+		getBuilderBuffer().append(ExpressionEnum.dot.getExpr());
 		return getBuilderClassInstance();
 	}
 	/**

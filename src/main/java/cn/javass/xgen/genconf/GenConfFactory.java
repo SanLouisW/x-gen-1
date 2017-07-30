@@ -12,7 +12,7 @@ public class GenConfFactory {
 		
 	}
 	
-	private static GenConfEbi createGenConfEbi(GenConfImplementor provider){
+	public static GenConfEbi createGenConfEbi(GenConfImplementor provider){
 		return GenConfEbo.getInstance(provider);
 	}
 }

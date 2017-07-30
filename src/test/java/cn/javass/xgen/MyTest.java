@@ -1,5 +1,8 @@
 package cn.javass.xgen;
 
+import cn.javass.xgen.genconf.GenConfEbi;
+import cn.javass.xgen.genconf.GenConfFactory;
+import cn.javass.xgen.genconf.implementor.impl.GenConfXmlImpl;
 import cn.javass.xgen.utill.readxml.Context;
 import cn.javass.xgen.utill.readxml.Parser;
 import cn.javass.xgen.utill.readxml.Parser2;
@@ -63,19 +66,27 @@ public class MyTest {
 //		GenConfEbi ebi = GenConfFactory.createGenConfEbi(new GenConfXmlImpl());
 //		
 //		System.out.println("gm====="+ebi.getMapModuleConf());
-		long a1 = System.currentTimeMillis();
-		
-		Context ctx = Context.getInstance("/GenConf.xml");
-		for(int i=0;i<1000;i++){
-			//String [] ss = Parser2.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
-			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
-		}
-		
-		long a2 = System.currentTimeMillis();
-		System.out.println("now use time==="+(a2-a1));
+//		long a1 = System.currentTimeMillis();
+//		
+//		Context ctx = Context.getInstance("/GenConf.xml");
+//		for(int i=0;i<1000;i++){
+//			//String [] ss = Parser2.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+//			String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$/Params$/Param$").interpret(ctx);
+//		}
+//		
+//		long a2 = System.currentTimeMillis();
+//		System.out.println("now use time==="+(a2-a1));
 /*		for(String s : ss){
 			System.out.println("ss=="+s);
 		}*/
+//		Context ctx = Context.getInstance("/GenConf.xml");
+//		String [] ss = Parser.parse("GenConf/NeedGens/NeedGen$.provider$").interpret(ctx);
+//		for(String s : ss){
+//			System.out.println("ss=="+s);
+//		}
+		GenConfEbi ebi = GenConfFactory.createGenConfEbi(new GenConfXmlImpl());
+		
+		System.out.println("===>"+ebi.getGenConf());
 	}
 
 	

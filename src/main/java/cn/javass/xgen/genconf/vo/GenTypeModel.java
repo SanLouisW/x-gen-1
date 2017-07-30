@@ -44,4 +44,11 @@ public class GenTypeModel {
 	public void setMapParams(Map<String, String> mapParams) {
 		this.mapParams = mapParams;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GenTypeModel [id=" + id + ", genTypeClass=" + genTypeClass + ", mapParams=" + mapParams + "]";
+	}
 }

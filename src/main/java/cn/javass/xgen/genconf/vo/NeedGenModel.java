@@ -32,4 +32,12 @@ public class NeedGenModel {
 	public void setMapParams(Map<String, String> mapParams) {
 		this.mapParams = mapParams;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "NeedGenModel [id=" + id + ", provider=" + provider + ", theme=" + theme + ", mapParams=" + mapParams
+				+ "]";
+	}
 }

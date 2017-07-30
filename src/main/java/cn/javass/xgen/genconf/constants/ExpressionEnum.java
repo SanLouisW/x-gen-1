@@ -9,7 +9,9 @@ public enum ExpressionEnum {
 	equal("="),
 	comma(","),
 	xml("xml"),
-	xmlFilePre("/");
+	xmlFilePre("/"), 
+	themeXmlName("ThemeConf.xml"),
+	location("Location");
 	
 	private String expr;
 	private ExpressionEnum(String expr){

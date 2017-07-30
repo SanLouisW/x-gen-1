@@ -1,5 +1,7 @@
 package cn.javass.xgen.genconf.vo;
 
+import java.util.Arrays;
+
 public class ExtendConfModel {
 	private String id;
 	private String value;
@@ -29,5 +31,13 @@ public class ExtendConfModel {
 	}
 	public void setSingle(boolean single) {
 		this.single = single;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ExtendConfModel [id=" + id + ", value=" + value + ", values=" + Arrays.toString(values) + ", single="
+				+ single + "]";
 	}
 }

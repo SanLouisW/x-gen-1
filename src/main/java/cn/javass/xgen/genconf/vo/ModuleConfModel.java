@@ -57,4 +57,13 @@ public class ModuleConfModel {
 	public void setMapExtends(Map<String, ExtendConfModel> mapExtends) {
 		this.mapExtends = mapExtends;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ModuleConfModel [moduleId=" + moduleId + ", useTheme=" + useTheme + ", mapNeedGendTypes="
+				+ mapNeedGendTypes + ", mapExtends=" + mapExtends + "]";
+	}
 }

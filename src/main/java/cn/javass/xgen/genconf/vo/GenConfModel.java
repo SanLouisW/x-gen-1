@@ -58,4 +58,12 @@ public class GenConfModel {
 	public void setMapContants(Map<String, String> mapContants) {
 		this.mapContants = mapContants;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GenConfModel [needGens=" + needGens + ", themes=" + themes + ", mapContants=" + mapContants + "]";
+	}
 }

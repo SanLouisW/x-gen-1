@@ -69,4 +69,12 @@ public class ThemeModel {
 	public void setMapproviders(Map<String, String> mapproviders) {
 		this.mapproviders = mapproviders;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ThemeModel [id=" + id + ", location=" + location + ", mapGenTypes=" + mapGenTypes + ", mapGenOutTypes="
+				+ mapGenOutTypes + ", mapproviders=" + mapproviders + "]";
+	}
 }
