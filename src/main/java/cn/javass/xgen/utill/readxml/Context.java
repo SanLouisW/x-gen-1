@@ -52,7 +52,7 @@ public class Context {
 		this.preEles = preEles;
 	}
 	
-	private void init(){
+	public void init(){
 		mapCtx = new HashMap<String, Context>();
 	} 
 	

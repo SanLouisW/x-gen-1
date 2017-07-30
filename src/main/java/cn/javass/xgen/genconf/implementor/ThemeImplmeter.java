@@ -11,7 +11,7 @@ public interface ThemeImplmeter {
 	 * @param params
 	 * @return
 	 */
-	public Map<String,GenTypeModel> getMapTypesModel(String themeId, Map<String,String> params);
+	public Map<String,GenTypeModel> getMapGenTypes(String themeId,Map<String,String> params);
 	
 	public Map<String,String>  getMapGenOutTypes(String themeId, Map<String,String> params);
 	
